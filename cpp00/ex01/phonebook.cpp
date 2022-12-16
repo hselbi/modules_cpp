@@ -103,39 +103,11 @@ int	main()
 			std::string dsecret;
 			std::cout << "Enter your darkest secret: ";
 			std::cin >> dsecret;
-
-			/*
-				! when user use this command shoukd gives like thus :
-					* put first name:
-					* put last name:
-					* put nickname:
-					* put phone number:
-					* put dark secret: 
-				! the contact fields 
-					* first name
-					* last name
-					* nickname
-					* phone number
-					* dark secret
-			*/
 		}
 		else if (cmd == "SEARCH")
 		{
 
 			std::cout << "1: :\t";
-			/* 
-			! searching
-				* in saved contacts 
-					^ index
-					^ first name
-					^ last name
-					^ nickname
-				* each column must be 10 characters wide
-					^ a pipe "|" separate them
-					^ text must be right-aliged
-					^ if text longer than the column make a truncated and the last char must be dot "."
-				* 
-			*/
 		}
 		else
 		{
