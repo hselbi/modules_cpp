@@ -6,23 +6,18 @@
 	* ◦ Please note that dynamic allocation is forbidden.
 
 */
-#include <iostream>
-#include <stdlib.h>
-// #include <string>
-#include <stdio.h>
-#include <string.h>
-
-int	ft_isdigit(char *str)
-{
-	int i = 0;
-	while (str[i])
-	{
-		if (str[i] <= '0' || str[i] >= '9')
-			return (0);
-		i++;
-	}
-	return (1);
-}
+/*
+* Cout: used to output onto the standard output device like display screen.
+* Cin : used to take user input from standard input device like keyboard.
+* endl : used to have a new line or a line break.
+*/
+#include "contact.hpp"
+#include "phonebook.hpp"
+// #include <iostream>
+// #include <stdlib.h>
+// // #include <string>
+// #include <stdio.h>
+// #include <string.h>
 
 class Phonebook
 {
@@ -73,33 +68,42 @@ int	main()
 	Phonebook Obj[8];
 	int	j = 0;
 	// char *str;
-	std::string str;	//initial a string
+	std::string cmd;	//initial a string
 	
-	while (1)
+	while (true)
 	{
 		std::cout << "ENTER A CHOICE:\t";
-		std::getline(std::cin, str);
-		if (str.empty())
+		std::getline(std::cin, cmd);
+		if (cmd.empty())
 			break;
-		else if (str == "EXIT")
+		else if (cmd == "EXIT")
 			exit(0);
-		else if (str == "ADD")
+		else if (cmd == "ADD")
 		{
-			for (int i = 0; i < 5; i++)
-			{
-				if (i == 0)
-					std::cout << "\nput your first name\t";
-				else if (i == 1)
-					std::cout << "\nput your last name\t";
-				else if (i == 2)
-					std::cout << "\nput your nickname\t";
-				if (i == 3)
-					std::cout << "\nput your number\t";
-				if (i == 4)
-					std::cout << "\nput your darkest secret\t";
-				Obj[j].SetDate(i);
-				j++;
-			}
+
+			std::string fname;
+			std::cout << "Enter your first name: ";
+			std::cin >> fname;
+
+			std::string lname;
+			std::cout << "Enter your last name: ";
+			std::cin >> lname;
+
+			std::string nname;
+			std::cout << "Enter your nickname: ";
+			std::cin >> nname;
+
+			std::string phone;
+			std::cout << "Enter your number phone: ";
+			std::cin >> phone;
+			std::istringstream num(phone);
+			int digit;
+			
+
+			std::string dsecret;
+			std::cout << "Enter your darkest secret: ";
+			std::cin >> dsecret;
+
 			/*
 				! when user use this command shoukd gives like thus :
 					* put first name:
@@ -115,7 +119,7 @@ int	main()
 					* dark secret
 			*/
 		}
-		else if (str == "SEARCH")
+		else if (cmd == "SEARCH")
 		{
 
 			std::cout << "1: :\t";
@@ -133,8 +137,11 @@ int	main()
 				* 
 			*/
 		}
+		else
+		{
+			std::cout << "Invalid Command, please try again\n" << std::endl;
+		}
+		
 	}
-	// Obj.SetDate(av[1]);
-	// std::cout << Obj.GetData();
 	return (0);
 }
