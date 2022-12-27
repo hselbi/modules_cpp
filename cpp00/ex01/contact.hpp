@@ -35,7 +35,7 @@ class Contacts
             int digit;
             while ()
             {
-                /* code */
+                if
             }
             
         }

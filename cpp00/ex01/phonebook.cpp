@@ -13,11 +13,6 @@
 */
 #include "contact.hpp"
 #include "phonebook.hpp"
-// #include <iostream>
-// #include <stdlib.h>
-// // #include <string>
-// #include <stdio.h>
-// #include <string.h>
 
 class Phonebook
 {
@@ -80,34 +75,48 @@ int	main()
 			exit(0);
 		else if (cmd == "ADD")
 		{
-
-			std::string fname;
+			Contact new_contact;
 			std::cout << "Enter your first name: ";
-			std::cin >> fname;
+			std::cin >> new_contact.fname;
 
-			std::string lname;
 			std::cout << "Enter your last name: ";
-			std::cin >> lname;
+			std::cin >> new_contact.lname;
 
-			std::string nname;
 			std::cout << "Enter your nickname: ";
-			std::cin >> nname;
+			std::cin >> new_contact.nname;
 
-			std::string phone;
 			std::cout << "Enter your number phone: ";
-			std::cin >> phone;
-			std::istringstream num(phone);
-			int digit;
+			std::cin >> new_contact.phone;
 			
+			std::istringstream num(phone);
+			std::string digit;
+			while (true)
+			{
+				std::cout<<"Please enter some value: ";
+				std::cin>>digit;
+				if((digit.find_first_not_of("0123456789") == std::string::npos))
+				{
+					std::cout<<"The value "<<digit<<" is Integer"<<std::endl;
+					break ;
+				}
+				else
+				{
+					std::cin.clear();
+        			std::cin.ignore(256, '\n');
+					std::cout<<"The value "<<digit<<" is Not Integer"<<std::endl;
 
-			std::string dsecret;
+				}
+			}
+		
 			std::cout << "Enter your darkest secret: ";
-			std::cin >> dsecret;
+			std::cin >> new_contact.dsecret;
+			
 		}
 		else if (cmd == "SEARCH")
 		{
 
 			std::cout << "1: :\t";
+			display_preview(Obj)
 		}
 		else
 		{

@@ -50,5 +50,8 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "utility": "cpp"
-    }
+    },
+    "json.schemas": [
+    
+    ]
 }
