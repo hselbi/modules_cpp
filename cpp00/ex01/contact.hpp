@@ -14,6 +14,7 @@
 class Contacts
 {
     private:
+        
         std::string fname;
         std::string lname;
         std::string nname;

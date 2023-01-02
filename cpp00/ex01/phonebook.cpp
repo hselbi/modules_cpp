@@ -14,6 +14,19 @@
 #include "contact.hpp"
 #include "phonebook.hpp"
 
+using std::string;
+
+class Contact
+{
+	private:
+		int Index;
+		string FirstName;
+		string LastName;
+		string NickName;
+		string Numbers;
+		string DarkSecret;
+};
+
 class Phonebook
 {
 	private:
