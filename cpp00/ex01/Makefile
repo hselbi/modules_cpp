@@ -1,8 +1,8 @@
-SRC = main.cpp phonebook.cpp
+SRC = main.cpp Phonebook.cpp Contact.cpp
 
-NAME = phonebook
+NAME = Phonebook
 
-CC = c++ -Wall -Wextra -Werror -g
+CC = c++ -Wall -Wextra -Werror -std=c++98
 
 all: ${NAME}
 

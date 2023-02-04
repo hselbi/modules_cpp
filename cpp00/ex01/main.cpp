@@ -1,75 +1,27 @@
 
 #include "Contact.hpp"
-#include "phonebook.hpp"
-
- void    check_len(string txt)
-{
-    if (txt.length() <= 10)
-        std::cout << std::right << std::setw(10) << txt;
-    else
-    {
-        txt = txt.substr(0, 9) + ".";
-        std::cout << std::right << std::setw(10) << txt;
-    }
-}
-
-void    Contact::ContactDisplay(){
-            check_len(std::to_string(Index_));
-            std::cout << "|";
-            check_len(FirstName_);
-            std::cout << "|";
-            check_len(LastName_);
-            std::cout << "|";
-            check_len(NickName_);
-            std::cout << "|";
-            check_len(Number_);
-            std::cout << "|";
-            check_len(DarkSecret_);
-            std::cout << std::endl;
-}
-
-// void    preview(Contact cont[8])
-// {
-//     std::cout << std::right << std::setw(10) << "Index";
-//     std::cout << "|";
-//     std::cout << std::right << std::setw(10) << "First Name";
-//     std::cout << "|";
-//     std::cout << std::right << std::setw(10) << "Last Name";
-//     std::cout << "|";
-//     std::cout << std::right << std::setw(10) << "Nick Name";
-//     std::cout << "|";
-//     std::cout << std::right << std::setw(10) << "Cell Phone";
-//     std::cout << "|";
-//     std::cout << std::right << std::setw(10) << "Dark Secret" << std::endl;
-
-//     for (int i = 0; i < 8; i++)
-//     {
-//         // std::cout << cont[i].getFname();
-//         cont[i].ContactDisplay();
-//     }
-    
-// }
+#include "Phonebook.hpp"
 
 void    add_contact(Contact cont[8], int i)
 {
     cont[i].setIdx(i);
 
-    string fn;
+    std::string fn;
     std::cout << "Enter your first name: ";
     std::getline(std::cin, fn);
     cont[i].setFn(fn);
 
-    string ln;
+    std::string ln;
     std::cout << "Enter your last name: ";
     std::getline(std::cin, ln);
     cont[i].setLn(ln);
 
-    string nick;
+    std::string nick;
     std::cout << "Enter your nick name: ";
     std::getline(std::cin, nick);
     cont[i].setNn(nick);
 
-    string num;
+    std::string num;
     while(true)
     {
         std::cout << "Enter your number: ";
@@ -86,11 +38,11 @@ void    add_contact(Contact cont[8], int i)
         }
     }
 
-    string ds;
+    std::string ds;
     std::cout << "Enter your dark secret: ";
     std::getline(std::cin, ds);
     cont[i].setDs(ds);
-
+    cont[i].setTr(true);
 }
 
 int main()

@@ -2,7 +2,7 @@ SRC = megaphone.cpp
 
 NAME = megaphone
 
-CC = c++ -Wall -Wextra -Werror
+CC = c++ -Wall -Wextra -Werror -std=c++98
 
 all: ${NAME}
 

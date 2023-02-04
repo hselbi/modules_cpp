@@ -1,5 +1,9 @@
-#include "phonebook.hpp"
+#include "Phonebook.hpp"
 #include "Contact.hpp"
+#include <strstream>
+#include <sstream>
+#include <iostream>
+#include <cmath>
 
 void    preview(Contact cont[8])
 {
@@ -15,33 +19,34 @@ void    preview(Contact cont[8])
     std::cout << "|";
     std::cout << std::right << std::setw(10) << "Dark Secret" << std::endl;
 
+    std::cout << std::right << std::setw(11) << "|";
+    std::cout << std::right << std::setw(11) << "|";
+    std::cout << std::right << std::setw(11) << "|";
+    std::cout << std::right << std::setw(11) << "|";
+    std::cout << std::right << std::setw(11) << "|" << std::endl;
+
     for (int i = 0; i < 8; i++)
         cont[i].ContactDisplay();
     
 }
 
-void    Contact::print_contact(void)
-{
-    std::cout << "First Name: " << FirstName_ << std::endl;
-    std::cout << "Last Name: " << LastName_ << std::endl;
-    std::cout << "Nick Name: " << NickName_ << std::endl;
-    std::cout << "Number: " << Number_ << std::endl;
-    std::cout << "dark Secret: " << DarkSecret_ << std::endl;
-}
-
 void    choosen_one(Contact cont[8])
 {
-    string inp;
-    std::stringstream sstream;
+    std::string inp;
+    std::stringstream ss;
     int    num;
 
-
-    std::cout << "choose an index from 1 to 10" << std::endl;
+    std::cout << std::endl << "choose an index from 1 to 10" << std::endl;
     std::getline(std::cin, inp);
-    sstream << inp;
-    sstream >> num;
 
-    if (sstream.fail())
+    if((inp.find_first_not_of("0123456789") != std::string::npos))
+    {
+        std::cerr << "this is not a number" << std::endl << std::endl;
+        return ;
+    }
+    ss << inp;
+    ss >> num;
+    if (ss.fail())
         std::cerr << "this is not a number" << std::endl;
     else if (num >= 1 && num < 9)
         cont[num - 1].print_contact();

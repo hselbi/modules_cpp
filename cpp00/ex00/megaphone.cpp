@@ -18,6 +18,8 @@ int main(int ac, char **av)
         }
         i++;
     }
-    std::cout << "\n";
+    if (ac == 1)
+        std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
+    std::cout << std::endl;
     return 0;
 }
