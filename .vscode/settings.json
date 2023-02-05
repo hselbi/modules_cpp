@@ -65,7 +65,8 @@
         "iomanip": "cpp",
         "numbers": "cpp",
         "sstream": "cpp",
-        "gpr": "cpp"
+        "gpr": "cpp",
+        "strstream": "cpp"
     },
     "json.schemas": [
     

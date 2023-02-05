@@ -17,12 +17,12 @@ void Zombie::set_name(std::string name)
 
 Zombie::~Zombie()
 {
-    std::cout << "all death" << std::endl;
+    std::cout << zname << ": death" << std::endl;
 }
 
 void Zombie::announce(void)
 {
-    std::cout << "<" << zname << ">: BraiiiiiiinnnzzzZ..." << std::endl;
+    std::cout << zname << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
 Zombie* zombieHorde( int N, std::string name)
@@ -31,7 +31,7 @@ Zombie* zombieHorde( int N, std::string name)
         return (NULL);
     Zombie* hordeZombies = new Zombie[N];
 
-    for (size_t i = 0; i < N; i++)
+    for (int i = 0; i < N; i++)
         hordeZombies[i].set_name(name);
     return (hordeZombies);
 }
@@ -39,12 +39,13 @@ Zombie* zombieHorde( int N, std::string name)
 int main()
 {
     Zombie* hordes;
-    int c = 5;
+    int c = 12;
 
     hordes = zombieHorde(c, "hafid");
-    for (size_t i = 0; i < c; i++)
+    for (int i = 0; i < c; i++)
         hordes->announce();
 
     delete[] hordes;
+    system("leaks a.out");
     return 0;
 }

@@ -4,14 +4,14 @@ SRCS = ./tests.cpp \
 CC = clang++
 NAME = account
 
-CFLANG = -Wall -Wextra -Werror -std=c++98 -g
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 OBJS = $(SRCS:.cpp=.o)
 
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAG) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
 	rm -f $(OBJS)
