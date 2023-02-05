@@ -57,7 +57,11 @@ Account::~Account()
 {
     _displayTimestamp();
     std::cout << " index:" << (7 - _accountIndex);
+<<<<<<< HEAD
     std::cout << ";amount:" << _amount;
+=======
+    std::cout << ";amount:" << _totalAmount;
+>>>>>>> 3f0fbdffc8eec61c732b8a52f63a5927ed0fdc52
     std::cout << ";closed" << std::endl;
 }
 
@@ -84,6 +88,8 @@ bool	Account::makeWithdrawal( int withdrawal )
         std::cout << ";withdrawal:" << withdrawal;
         _amount -= withdrawal;
         std::cout << ";amount:" << _totalAmount;
+        // std::cout << std::endl <<"this is ===> " << _nbWithdrawals << " this is a  withdraw " << _totalAmount << std::endl;
+        // _nbWithdrawals++;
         std::cout << ";nb_withdrawals:" << ++_nbWithdrawals << std::endl;
         _totalAmount -= withdrawal;
         _totalNbWithdrawals = _nbWithdrawals;

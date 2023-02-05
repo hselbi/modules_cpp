@@ -22,12 +22,19 @@ Contact::Contact()
     DarkSecret_ = "";
 }
 
+<<<<<<< HEAD
 Contact::~Contact() {}
 
 Contact::Contact(int idx, std::string fn_, std::string ln_, std::string n_, std::string nb_, std::string ds_)
 {
     IsValid_ = true;
     Index_ = idx;
+=======
+Contact::Contact(int idx, std::string fn_, std::string ln_, std::string n_, std::string nb_, std::string ds_)
+{
+    IsValid_ = true;
+    Index_ = idx + 1;
+>>>>>>> 3f0fbdffc8eec61c732b8a52f63a5927ed0fdc52
     FirstName_ = fn_;
     LastName_ = ln_;
     NickName_ = n_;
@@ -35,7 +42,11 @@ Contact::Contact(int idx, std::string fn_, std::string ln_, std::string n_, std:
     DarkSecret_ = ds_;
 }
 
+<<<<<<< HEAD
 void Contact::setIdx(int in) { Index_ = in;}
+=======
+void Contact::setIdx(int in) {Index_ = in;}
+>>>>>>> 3f0fbdffc8eec61c732b8a52f63a5927ed0fdc52
 void Contact::setFn(std::string fn) { FirstName_ = fn;}
 void Contact::setLn(std::string ln) { LastName_ = ln;}
 void Contact::setNn(std::string n) { NickName_ = n;}
@@ -43,8 +54,12 @@ void Contact::setNb(std::string nb) { Number_ = nb;}
 void Contact::setDs(std::string ds) { DarkSecret_ = ds;}
 void Contact::setTr(bool b) { IsValid_ = b;}
 
+<<<<<<< HEAD
 
 int Contact::getIdx() { return Index_;}
+=======
+int Contact::getIdx() {return Index_;}
+>>>>>>> 3f0fbdffc8eec61c732b8a52f63a5927ed0fdc52
 std::string Contact::getFn() { return FirstName_; }
 std::string Contact::getLn() { return LastName_;}
 std::string Contact::getNn() { return NickName_;}

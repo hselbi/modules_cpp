@@ -36,7 +36,10 @@ class Contact {
         bool getTr();
 
         Contact();
+<<<<<<< HEAD
         ~Contact();
+=======
+>>>>>>> 3f0fbdffc8eec61c732b8a52f63a5927ed0fdc52
         
         Contact(int idx, std::string fn_, std::string ln_, std::string n_, std::string nb_, std::string ds_);
         
