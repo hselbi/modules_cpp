@@ -1,5 +1,95 @@
-#include <iostream>
-#include <cmath>
+
+
+#include "Point.hpp"
+
+Vec operator-(const Point& p1, const Point& p2) {
+  return Vec(((p1.getX()) - (p2.getX())).toFloat(),
+              (p1.getY() - p2.getY()).toFloat());
+}
+
+Fixed operator*(const Vec& v1, const Vec& v2) {
+  return Fixed((v1.getX() * v2.getY()) - v1.getY() * v2.getX());
+}
+
+bool operator~(const Fixed& f) {
+  return f > Fixed(0);
+}
+
+bool bsp(const Point a, const Point b, const Point c, const Point point) {
+  Vec ab = a - b;
+  Vec bp = b - point;
+
+  Vec bc = b - c;
+  Vec cp = c - point;
+
+  Vec ca = c - a;
+  Vec ap = a - point;
+
+  if ((~(ab * bp) && ~(bc * cp) && ~(ca * ap))
+    || (!(~(ab * bp)) && !(~(bc * cp)) && !(~(ca * ap))))
+    return true;
+  return false;
+}
+
+
+#define Vec               Point
+
+class Point {
+ private:
+  Fixed const _x;
+  Fixed const _y;
+
+ public:
+  const Fixed& getX(void) const;
+  const Fixed& getY(void) const;
+
+  Point& operator=(const Point& p);
+  Point(void);
+  Point(const float x, const float y);
+  Point(const Point& p);
+  ~Point(void);
+};
+
+Vec operator-(const Point& p1, const Point& p2);
+Fixed operator*(const Vec& v1, const Vec& v2);
+bool operator~(const Fixed& f);
+bool bsp(Point const a, Point const b, Point const c, Point const point);
+std::ostream& operator<<(std::ostream& o, const Point& p);
+
+// #endif  // CIRCLE_04_CPP_MODULE_02_EX03_POINT_HPP_
+
+
+const Fixed& Point::getX(void) const {
+  return _x;
+}
+
+const Fixed& Point::getY(void) const {
+  return _y;
+}
+
+Point& Point::operator=(const Point& p) {
+  if (this != &p) {
+    const_cast<Fixed&>(_x) = p.getX();
+    const_cast<Fixed&>(_y) = p.getY();
+  }
+  return *this;
+}
+
+Point::Point(void)
+  : _x(0), _y(0) {}
+
+Point::Point(const float x, const float y)
+  : _x(x), _y(y) {}
+
+Point::Point(const Point& p)
+  : _x(p.getX()), _y(p.getY()) {}
+
+Point::~Point(void) {}
+
+std::ostream& operator<<(std::ostream& o, const Point& p) {
+  return o << "( " << p.getX().toFloat() << ", " << p.getY().toFloat() << " )";
+}
+
 class Fixed
 {
 private:
@@ -74,8 +164,6 @@ Fixed:: Fixed(const int x)
 {
     Value = x << fracBits;
 }
-
-
 int Fixed::toInt( void ) const
 {
     return (this->Value >> fracBits);
@@ -274,29 +362,26 @@ static Fixed max(Fixed& a, Fixed& b)
         return (b);
 }
 
-int main( void ) 
-{
-    float t = 15.82;
+// Copyright @bigpel66
 
-    t++;
-    Fixed a;
-    Fixed const b( 10 );
-    Fixed const c( 42.42f );
-    Fixed const d( b ); // copy
-    a = Fixed( 1234.4321f ); // assignement
-    std::cout << "a is " << a << std::endl;
-    std::cout << a << std::endl;
-	std::cout << ++a << std::endl;
-	std::cout << a << std::endl;
-	std::cout << ++a << std::endl;
-	std::cout << a << std::endl;
-    std::cout << "a is " << a << std::endl;
-    std::cout << "b is " << b << std::endl;
-    std::cout << "c is " << c << std::endl;
-    std::cout << "d is " << d << std::endl;
-    std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-    std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-    std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-    std::cout << "d is " << d.toInt() << " as integer" << std::endl;
-    return 0;
+// #include "Point.hpp"
+
+int main(void) {
+  Point a(0.0, 0.0);
+  Point b(0.0, 4.0);
+  Point c(5.0, 0.0);
+  Point hit1(1.0, 1.0);
+  Point hit2(10.0, 10.0);
+
+  std::cout << "Point a is " << a << std::endl;
+  std::cout << "Point b is " << b << std::endl;
+  std::cout << "Point c is " << c << std::endl;
+  std::cout << "Hit Point1 is " << hit1 << std::endl;
+  std::cout << "Hit Point2 is " << hit2 << std::endl;
+  std::cout << std::endl;
+  std::cout << "Hit Point1 is " << (bsp(a, b, c, hit1) ? "inside " : "outside ")
+    << "of the triangle!" << std::endl;
+  std::cout << "Hit Point1 is " << (bsp(a, b, c, hit2) ? "inside " : "outside ")
+    << "of the triangle!" << std::endl;
+  return 0;
 }
