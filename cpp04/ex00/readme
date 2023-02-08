@@ -1,0 +1,15 @@
+I'm looking for someone to develop something capable of reading all released games on Steam ( https://store.steampowered.com ) -including the ones that ask for legal age- and upcoming releases, in each game look for the languages listed and in the ones that have English but no Spanish (Latin American/Spain) search if they have an email posted (in the early access area, game description, game news, or in a pinned message on the discussions section of the Community Hub of the game) and if not but there is a web page linked, search for the contact email there.
+
+Then it has to EXPORT an excel file with all the names (and URLs) of all the games for which an email was found, and ANOTHER excel file for the games that did not have an email listed.
+
+
+
+URL: https://store.steampowered.com
+extract all the games on Steam including:
+* legal age
+* upcoming releases
+
+the games will be listed each game need to get:
+* that have only English
+* Email posted 
+* 
