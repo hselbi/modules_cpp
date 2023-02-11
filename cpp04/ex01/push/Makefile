@@ -1,4 +1,4 @@
-SRCS = main.cpp Animal.cpp Cat.cpp Dog.cpp
+SRCS = main.cpp Animal.cpp
 
 CC = c++
 NAME = Animal

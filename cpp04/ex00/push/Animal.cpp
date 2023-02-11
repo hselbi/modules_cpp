@@ -24,53 +24,9 @@ Animal& Animal::operator= (const Animal &target) {
 
 void Animal::makeSound()
 {
-	std::cout <<"[none]" << std::endl;
+	std::cout <<"** Unknow **" << std::endl;
 }
 
-
-
-
-Cat::Cat(void) : Animal()
-{
-    type_ = "Cat";
-	std::cout << "[ Cat: Constructor is called ]" << std::endl;
-};
-
-Cat::~Cat()
-{
-	std::cout << "[ Cat: Destructor is called ]" << std::endl;
-}
-
-void Cat::makeSound()
-{
-	std::cout << "=^._.^=∫ \tMeow~~~\n=^._.^=∫ \tMeow~~~" << std::endl;
-}
-
-std::string Cat::getType() {
-	return (type_);
-}
-
-
-
-// Dog::Dog(void) : Animal()
-// {
-// 	type_ = "Dog";
-// 	std::cout << "[ Dog: Constructor is called ]" << std::endl;
-// };
-
-// Dog::~Dog()
-// {
-// 	std::cout << "[ Dog: Destructor is called ]" << std::endl;
-// }
-
-// void Dog::makeSound()
-// {
-// 	std::cout << "▼・ᴥ・▼ \tWoof!! \n▼・ᴥ・▼ \tWoof!!" << std::endl;
-// }
-
-// std::string Dog::getType() {
-// 	return (type_);
-// }
 
 
 
