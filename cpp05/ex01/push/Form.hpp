@@ -21,14 +21,16 @@ public:
     ~Form();
 
     // Exceptions
-    class GradeTooHighException
+    class GradeTooHighException: public std::exception
     {
-        const char* what() const throw();
+        public:
+            const char* what() const throw();
     };
 
-    class GradeTooLowException
+    class GradeTooLowException: public std::exception
     {
-        const char* what() const throw();
+        public:
+            const char* what() const throw();
     };
 
     void beSigned(const Bureaucrat &src);

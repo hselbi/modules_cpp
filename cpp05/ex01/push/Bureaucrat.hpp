@@ -5,6 +5,7 @@
 #include <string>
 #include "Form.hpp"
 
+class Form;
 // class From
 class Bureaucrat
 {

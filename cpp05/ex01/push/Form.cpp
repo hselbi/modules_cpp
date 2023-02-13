@@ -17,12 +17,12 @@ Form::~Form()
 
 Form::Form(std::string name, int siGrade, int exGrade)
 {
-    std::cout << "[ Form: Constructor Paramaterized ]" << std::endl;
+    std::cout << "[ Form: Constructor Paramaterized !!!]" << std::endl;
     _name = name;
     isSigned = 0;
     if (siGrade < 1 || exGrade < 1)
         throw GradeTooHighException();
-    else if (siGrade > 150 | exGrade)
+    else if (siGrade > 150 || exGrade > 150)
         throw GradeTooLowException();
 
     signGrade = siGrade;
@@ -51,12 +51,12 @@ int Form::getRequiredGrade() const
 
 
 const char* Form::GradeTooHighException::what() const throw() {
-    return "Grad is Too High!!!!!!!!!!";
+    return ("Grad is Too High!!!!!!!!!!");
 }
 
 const char* Form::GradeTooLowException::what() const throw()
 {
-    return "Grade is too low!!!!!!!!";
+    return ("Grade is too low!!!!!!!!");
 }
 
 std::ostream &operator<<(std::ostream &o, const Form &src)
@@ -67,10 +67,10 @@ std::ostream &operator<<(std::ostream &o, const Form &src)
 
 void Form::beSigned(const Bureaucrat &src)
 {
-    if (src.getGrade() < 150)
+    if (src.getGrade() > 150)
         throw GradeTooLowException();
-    else if (src.getGrade() > 1)
+    else if (src.getGrade() < 1)
         throw GradeTooHighException();
-    else if (src.getGrade() <= signGrade && src.getGrade() <= requiredGrade)
+    if (src.getGrade() <= signGrade && src.getGrade() <= requiredGrade)
         isSigned = 1;
 }
