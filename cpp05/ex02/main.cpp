@@ -12,7 +12,7 @@ int main(void)
         {
             // Bureaucrat human("dabdoba",135);
             // Bureaucrat human("dabdoba",-140);
-            Bureaucrat human("dabdoba",146);
+            Bureaucrat human("dabdoba", 10);
 
             ShrubberyCreationForm myTree("hselbi");
             
@@ -25,9 +25,9 @@ int main(void)
         }
 
         {
-            Bureaucrat human("dabdoba",-135);
+            // Bureaucrat human("dabdoba",-135);
             // Bureaucrat human("dabdoba",140);
-            // Bureaucrat human("dabdoba",40);
+            Bureaucrat human("dabdoba",40);
 
             RobotomyRequestForm myRobot("hselbi");
             

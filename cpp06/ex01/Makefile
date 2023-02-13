@@ -1,13 +1,12 @@
-SRCS = 	main.cpp Bureaucrat.cpp Form.cpp
+SRCS = main.cpp
 
 CC = c++
 
-NAME = Bureaucrat
+NAME = Serialization
 
-CFLANG = -Wall -Wextra -Werror -std=c++98 
+CFLANG = -Wall -Wextra -Werror -std=c++98
 
 OBJS = $(SRCS:.cpp=.o)
-
 
 all: $(NAME)
 

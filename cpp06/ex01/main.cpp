@@ -1,9 +1,4 @@
-#include <iostream>
-
-struct Data
-{
-    std::string strData;
-};
+#include "Serialize.hpp"
 
 
 uintptr_t serialize(Data* ptr)
@@ -20,7 +15,7 @@ int main()
 {
     Data test;
 
-    test.strData = "it's hafid";
+    test.strData = "DumbAss";
     
     uintptr_t u;
 
