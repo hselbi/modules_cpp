@@ -1,16 +1,16 @@
-#ifndef EASYFIND_H
-#define EASYFIND_H
+#ifndef EASYFIND_HPP
+#define EASYFIND_HPP
 
 #include <iostream>
-#include <algorithm>
 #include <vector>
-
+#include <algorithm>
+#include <string>
+#include <unistd.h>
 template <typename T>
-typename T::iterator easyfind(T& container, int value)
-{
-	typename T::iterator iter;
 
-	iter = 	std::find(container.begin(),container.end(), value);
-	return iter;
-}
+std::string foundIt(void);
+std::string notFound(void);
+
+
+
 #endif

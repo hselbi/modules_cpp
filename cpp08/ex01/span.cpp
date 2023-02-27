@@ -1,103 +1,93 @@
-#include "span.hpp"
+#include "Span.hpp"
 
-Span::Span(unsigned int _size)
-{
-	numbers_.reserve(_size);
-}
+Span::Span(void)
+{}
 
-Span::~Span()
+Span::Span(unsigned int size)
 {
-	numbers_.clear();
+    vec.reserve(size);
 }
 
 Span::Span(const Span &target)
 {
-	numbers_.clear();
-	numbers_.reserve(target.numbers_.size());
-	std::copy(target.numbers_.begin(), target.numbers_.end(), numbers_.begin());
+    vec.reserve(target.vec.size());
+    std::copy(target.vec.begin(), target.vec.end(), vec.begin());
 }
 
 Span &Span::operator=(const Span &target)
 {
-	numbers_.clear();
-	numbers_.reserve(target.numbers_.size());
-	std::copy(target.numbers_.begin(), target.numbers_.end(), numbers_.begin());
-	return (*this);
+    vec.clear();
+    vec.reserve(target.vec.size());
+    std::copy(target.vec.begin(), target.vec.end(), vec.begin());
+    return (*this);
 }
 
-
-void Span::addNumber(unsigned int _number)
-{
-	// Size chek
-	if (numbers_.size() == numbers_.capacity())
-		throw SizeOver();
-
-	// Same number check
-	std::vector<unsigned int>::iterator iter;
-	iter = std::find (numbers_.begin(), numbers_.end(), _number);
-	numbers_.begin();
-	if (iter != numbers_.end())
-		throw ExistNumber();
-
-	// OK!
-	numbers_.push_back(_number);
+Span::~Span() {
+    vec.clear();
 }
 
-unsigned int Span::min(unsigned int _n1, unsigned int _n2)
+unsigned int Span::max(unsigned int nbr1, unsigned int nbr2)
 {
-	if (_n1 < _n2)
-		return (_n1);
-	else
-		return (_n2);
+    if (nbr1 > nbr2)
+        return nbr1;
+    else
+        return nbr2;
 }
 
-unsigned int Span::max(unsigned int _n1, unsigned int _n2)
+unsigned int Span::min(unsigned int nbr1, unsigned int nbr2)
 {
-	if (_n1 < _n2)
-		return (_n2);
-	else
-		return (_n1);
+    if (nbr1 > nbr2)
+        return nbr2;
+    else
+        return nbr1;
 }
 
-
-unsigned int Span::shortestSpan(void) 
+void Span::addNumber(unsigned int nbr)
 {
-	if (numbers_.size() <= 2)
-		throw NoRange();
-	unsigned int shortRange = 0;
-	for (std::vector<unsigned int>::iterator itr = numbers_.begin(); itr+1 != numbers_.end(); ++itr)
-	{
-		if (shortRange == 0 || (*itr, *(itr+1)) - min(*itr, *(itr+1)) < shortRange)
-			shortRange = max(*itr, *(itr+1)) - min(*itr, *(itr+1));
-	}
-	return (shortRange);
+    if (vec.size() == vec.capacity())
+        throw Size();
+    std::vector<unsigned int>::iterator it;
+    it = std::find(vec.begin(), vec.end(), nbr);
+    vec.begin();
+    if (it != vec.end())
+        throw Exist();
+    vec.push_back(nbr);
 }
 
-unsigned int Span::longestSpan(void)	
+unsigned int Span::shortestSpan(void)
 {
-	if (numbers_.size() <= 2)
-		throw NoRange();
-	unsigned int longRange = 0;
-	for (std::vector<unsigned int>::iterator itr = numbers_.begin(); itr+1 != numbers_.end(); ++itr)
-	{
-		if (max(*itr, *(itr+1)) - min(*itr, *(itr+1)) > longRange)
-			longRange = max(*itr, *(itr+1)) - min(*itr, *(itr+1));
-	}
-
-	return (longRange);
+    if (vec.size() <= 1)
+        throw Range();
+    unsigned int shortRange = 0;
+    for(std::vector<unsigned int>::iterator it = vec.begin(); it+1 != vec.end(); it++)
+    {
+        if (!shortRange || max(*it, *(it + 1)) - min(*it, *(it + 1)) < shortRange)
+            shortRange = max(*it, *(it + 1)) - min(*it, *(it + 1));
+    }
+    return shortRange;
 }
 
-const char* Span::SizeOver::what() const throw()
+unsigned int Span::longestSpan(void)
 {
-	return ("Size over!!!");
+    if (vec.size() <= 1)
+        throw Range();
+    unsigned int longRange = 0;
+    for(std::vector<unsigned int>::iterator it = vec.begin(); it+1 != vec.end(); it++)
+    {
+        if (max(*it, *(it + 1)) - min(*it, *(it + 1)) > longRange)
+            longRange = max(*it, *(it + 1)) - min(*it, *(it + 1));
+    }
+    return longRange;
 }
 
-const char* Span::ExistNumber::what() const throw()
-{
-	return ("Existing Number!!");
+const char *Span::Exist::what() const throw() {
+    return ("it's already existing !!!");
 }
 
-const char* Span::NoRange::what() const throw()
-{
-	return ("No range!");
+const char *Span::Size::what() const throw() {
+    return ("Size is Full !!!");
+}
+
+const char *Span::Range::what() const throw() {
+    return ("There's no Range !!!");
 }
