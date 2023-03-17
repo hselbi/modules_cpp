@@ -1,0 +1,36 @@
+#ifndef BITCOINEXCHANGE_HPP
+#define BITCOINEXCHANGE_HPP
+
+#include <iostream>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <string>
+#include <stdio.h>
+#include <string.h>
+#include <string.h>
+#include <map>
+
+class BitcoinExchange
+{
+private:
+    std::map<std::string, float> btcVal;
+public:
+    BitcoinExchange(void);
+    BitcoinExchange(const char *d);
+    BitcoinExchange(const BitcoinExchange &target);
+    BitcoinExchange &operator=(const BitcoinExchange &target);
+    ~BitcoinExchange();
+
+    void output(const char *input);
+    void printMap(void);
+
+};
+
+int checkDate(std::string date);
+void    dateError(std::string date);
+
+int checkValue(std::string val);
+void    valueError(int flag);
+
+#endif
