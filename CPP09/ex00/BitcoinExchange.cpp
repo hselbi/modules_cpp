@@ -19,10 +19,6 @@ BitcoinExchange::BitcoinExchange(const char *d)
     std::getline(csv_data, line);
     while(std::getline(csv_data, line))
     {
-        // std::getline(csv_data, line);
-        // std::cout << "date ==> " << date;
-        // std::cout << "\t\tvalue = " << value << std::endl;
-
         date = line.substr(0, 10);
         if (checkDate(date))
             dateError(date);
@@ -32,13 +28,10 @@ BitcoinExchange::BitcoinExchange(const char *d)
         // if (f)
         //     valueError(f);
         this->btcVal[date] = std::stof(value);
-        // 2022-01-30
-        // std::cout << "date ==> " << date;
-        // std::cout << "\t\tvalue = " << this->btcVal[date] << std::endl;
 
-    }
-    // std::cout << "Size of map: " << btcVal.size() << std::endl;
-    
+        // you may check before felling the if the date is already there
+
+    }    
     csv_data.close();
 }
 
@@ -56,15 +49,11 @@ void BitcoinExchange::printMap(void)
 
 void BitcoinExchange::output(const char *input)
 {
-
     std::string tmp[2];
     std::string line;
-    // std::string date;
-    std::string value;
     std::ifstream inp;
     inp.open(input, std::ios::in);
-    // std::cout << "date ==> 2011-01-03";
-    std::cout << "value = " << btcVal["2013-08-04"] << std::endl;
+    // ! print the map
     // printMap();
     if (!inp)
     {
@@ -82,22 +71,43 @@ void BitcoinExchange::output(const char *input)
             tmp[i] = token;
             i++;
         }
-        // std::cout << "date ==> 2011-01-03";
-        // std::cout << "\t\tvalue = " << this->btcVal["2011-01-03"] << std::endl;
     
         if (checkDate(tmp[0]))
+        {
             dateError(tmp[0]);
+            continue;
+        }
 
         int f = checkValue(tmp[1]);
         if (f)
+        {
             valueError(f);
-        // const char *date = tmp[0].c_str();
-        std::cout << "date ==> " << tmp[0] << std::endl;
-        std::cout << this->btcVal[tmp[1]] << std::endl;
-        // 2022-01-30
+            continue;
+        }
 
+        displayResults(tmp[0], tmp[1]);
     }
+}
 
+void BitcoinExchange::displayResults(std::string date, std::string value)
+{
+    std::string d;
+    float fval;
+
+    fval = std::atof(value.c_str());
+    d = date.substr(0, 10);
+    std::map<std::string, float>::iterator it;
+    it = btcVal.find(d);
+    if (it != btcVal.end())
+        std::cout << d << " => " << fval << " = " << fval * (it->second) << std::endl;
+    else
+    {
+        it = btcVal.begin();
+        while (d > it->first && it != btcVal.end())
+            it++;
+        it--;
+        std::cout << d << " => " << fval << " = " << fval * (it->second) << std::endl;
+    }
 }
 
 int checkValue(std::string val)
@@ -124,47 +134,41 @@ void valueError(int flag)
 
 int    checkDate(std::string date)
 {
-    // std::cout << date << std::endl;
     std::string tmp[3];
-    int year;
-    int month;
-    int day;
+    int year, month, day, i = 0;
     std::istringstream iss(date);
     std::string token;
-    int i = 0;
+    // int i = 0;
+    //split the date with '-' and put them in token
     while (std::getline(iss, token, '-'))
     {
         tmp[i] = token;
         i++;
     }
+    
     char *end;
     int base = 10;
     year = std::strtol(tmp[0].c_str(), &end, base);
+    // check years [2009-2022]
     if (year < 2009 && year > 2022)
         return 1;
-    // {
-    //     std::cout << "ERROR IN YEARS" << std::endl;
-    //     std::exit(1);
-    // }
+    
     month = std::strtol(tmp[1].c_str(), &end, base);
+    //check months [1-12]
+    if (month < 1 || month > 12)
+        return 1;
+    
     day = std::strtol(tmp[2].c_str(), &end, base);
+    // check days [1-31]
+    if (day < 1 || day > 31)
+        return 1;
+    
+    // check febrary
     if (month == 2 && day > 29)
         return 1;
-    // {
-    //     std::cout << "ERROR IN MONTH 2!!!" << std::endl;
-    //     std::exit(1);
-    // }
+    // check month who has 30 days
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
         return 1;
-    else
-    {
-        if (day > 31)
-            return 1;
-    }
-    // {
-    //     std::cout << "ERROR IN MORE THEN 30 DAY!!!" << std::endl;
-    //     std::exit(1);
-    // }
     return 0;
 }
 
@@ -189,8 +193,6 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &target)
 {
     btcVal = target.btcVal;
 }
-
-
 
 BitcoinExchange::~BitcoinExchange()
 {

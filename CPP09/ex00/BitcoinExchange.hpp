@@ -24,6 +24,7 @@ public:
 
     void output(const char *input);
     void printMap(void);
+    void displayResults(std::string date, std::string value);
 
 };
 
