@@ -4,16 +4,16 @@ int checkIn(int ac, char *av[])
 {
     if (ac < 2)
     {
-        std::cout << "there's no arguments, try again!!" << std::endl;
+        std::cout << "There's No Arguments, Try Again!!" << std::endl;
         return 1;
     }
     int i = 0;
     while (av[++i])
     {
         int nbr = std::atoi(av[i]);
-        if (nbr < 0 && nbr > INT32_MAX)
+        if (nbr < 0 || nbr > INT32_MAX)
         {
-            std::cout << "this is number is negative, try again!!" << std::endl;
+            std::cout << "This is number is Negative, Try Again!!" << std::endl;
             return 1;
         }
     }
@@ -29,16 +29,15 @@ int main(int ac, char *av[])
     {
         PmergeMe merge(av);
         std::cout << "Before: " ;
-        merge.DisCon();
+        merge.DisVec();
+        // merge.DisLis();
         merge.vecSorting();
+        merge.liSorting();
         std::cout << "after: " ;
-        merge.DisCon();
+        merge.DisVec();
+        merge.displayTiming();
+        // merge.DisLis();
 
-    // if (merge == false)
-    //     cout << "\nVector is not empty";
-    // else
-    //     cout << "\nVector is empty";
     }
-    
     return 0;
 }
