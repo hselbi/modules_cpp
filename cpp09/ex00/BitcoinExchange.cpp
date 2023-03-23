@@ -1,26 +1,22 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange(void) 
-{
-    // std::cout << "Default Constructor!!" << std::endl;
-}
+{}
 
 BitcoinExchange::BitcoinExchange(const char *d)
 {
     std::string line, date, value, token, tmp[3];
     std::ifstream csv_data;
 
-
     csv_data.open(d, std::ios::in);
 	if (!csv_data) {
 		std::cout << "No such file" << std::endl;
         std::exit(1);
 	}
-    
-    std::getline(csv_data, line);
     while(std::getline(csv_data, line))
     {
-        // ? split the line into two 
+        if (line.empty() || checkLine(line))
+            continue;
         std::istringstream iss(line);
         int i = 0;
         while (std::getline(iss, token, ','))
@@ -28,22 +24,15 @@ BitcoinExchange::BitcoinExchange(const char *d)
             tmp[i] = token;
             i++;
         }
-
-        // * check for the date
         if (checkDate(tmp[0]))
-            dateError(tmp[0]);
+             dataValueError(1);
         date = tmp[0].substr(0, 10);
 
-        // & check for the value is correct
         int f = dataValue(tmp[1]);
         if (f)
             dataValueError(f);
-
-        // ^ adding to map
         this->btcVal[date] = std::stof(tmp[1]);
-
-    }    
-    
+    }   
     csv_data.close();
 }
 
@@ -69,16 +58,14 @@ int dataValue(std::string v)
     float nbr_float = std::stof(v);
     if (nbr_float < 0.0)
         return 1;
-
-    // std::cout << nbr_float << std::endl;
-    if (nbr_float > 70000)
+    if (nbr_float > 70000.0)
         return 2;
     return 0;
 }
 
 void dataValueError(int flag)
 {
-    std::cerr << "Error: CSV file." << flag << std::endl;
+    std::cerr << "Error: CSV file." << std::endl;
     std::exit(flag);
 }
 
@@ -91,27 +78,36 @@ void BitcoinExchange::printMap(void)
         std::cout << "Key: " << it->first << ", Value: " << it->second << std::endl;
         ++it;
     }
+}
 
+int checkLine(std::string line)
+{
+    int i = 0;
+    while (line[i])
+    {
+        if ((line[i] >= 'a' && line[i] <= 'z') || (line[i] >= 'A' && line[i] <= 'Z'))
+            return 1;
+        i++;
+    }
+    return 0;
 }
 
 void BitcoinExchange::output(const char *input)
 {
-    std::string tmp[2];
-    std::string line;
+    std::string tmp[2], line;
     std::ifstream inp;
-    inp.open(input, std::ios::in);
 
-    // ! print the map
-    // printMap();
-    
+    inp.open(input, std::ios::in);
     if (!inp)
     {
-        std::cerr << "No Input file" << std::endl;
+        std::cerr << "Error: not a real number." << std::endl;
         std::exit(1);
     }
-    std::getline(inp, line);
     while(std::getline(inp, line))
     {
+
+        if (line.empty() || checkLine(line))
+            continue;
         std::istringstream iss(line);
         std::string token;
         int i = 0;
@@ -120,30 +116,34 @@ void BitcoinExchange::output(const char *input)
             tmp[i] = token;
             i++;
         }
-        // std::cout << tmp[0] << std::endl;
-        // std::cout << tmp[1] << std::endl;
+
         if (checkDate(tmp[0]))
         {
             dateError(tmp[0]);
             continue;
         }
-
+         std::replace(tmp[1].begin(), tmp[1].end(), ',', '.');
         int f = checkValue(tmp[1]);
         if (f)
         {
             valueError(f);
             continue;
         }
-
         displayResults(tmp[0], tmp[1]);
     }
+}
+
+double scientificToDecimal(std::string scientificNotation) {
+    std::istringstream iss(scientificNotation);
+    double value;
+    iss >> value;
+    return value;
 }
 
 void BitcoinExchange::displayResults(std::string date, std::string value)
 {
     std::string d;
     float fval;
-
     fval = std::atof(value.c_str());
     d = date.substr(0, 10);
     std::map<std::string, float>::iterator it;
@@ -202,39 +202,25 @@ int    checkDate(std::string date)
     std::string token, tmp[3];
     int year, month, day, i = 0;
     std::istringstream iss(date);
-
-    // ^ split the date with '-' and put them in token
     while (std::getline(iss, token, '-'))
     {
         tmp[i] = token;
         i++;
     }
-    
     char *end;
     int base = 10;
     year = std::strtol(tmp[0].c_str(), &end, base);
-    
-    // ^ check years [2009-2022]
     if (year < 2009 && year > 2022)
         return 1;
-    
-    month = std::strtol(tmp[1].c_str(), &end, base);
-    
-    // ^ check months [1-12]
+    month = std::strtol(tmp[1].c_str(), &end, base);    
     if (month < 1 || month > 12)
         return 1;
     
     day = std::strtol(tmp[2].c_str(), &end, base);
-    
-    // ^ check days [1-31]
     if (day < 1 || day > 31)
         return 1;
-    
-    // ^ check febrary
     if (month == 2 && day > 29)
         return 1;
-    
-    // ^ check month who has 30 days
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
         return 1;
     return 0;
@@ -243,7 +229,6 @@ int    checkDate(std::string date)
 void dateError(std::string date)
 {
     std::cerr << "Error: bad input => " << date << std::endl;
-    // std::exit(1);
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &target)
@@ -259,6 +244,4 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &target)
 }
 
 BitcoinExchange::~BitcoinExchange()
-{
-    // std::cout << "end of constructor!!" << std::endl;
-}
+{}

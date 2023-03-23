@@ -22,7 +22,6 @@ int checkIn(int ac, char *av[])
 
 int main(int ac, char *av[])
 {
-    
     if (checkIn(ac, av))
         return 1;
     else
@@ -35,9 +34,8 @@ int main(int ac, char *av[])
         merge.liSorting();
         std::cout << "after: " ;
         merge.DisVec();
-        merge.displayTiming();
         // merge.DisLis();
-
+        merge.displayTiming();
     }
     return 0;
 }

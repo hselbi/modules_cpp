@@ -15,11 +15,7 @@ public:
     RPN(const RPN &target);
     RPN operator=(const RPN &target);
     ~RPN();
-
     void polishCalculator(char *line);
 };
-
-
-
 
 #endif

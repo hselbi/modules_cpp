@@ -1,13 +1,10 @@
 #include "RPN.hpp"
 
 RPN::RPN(void)
-{
-    std::cout << "Default Constructor" << std::endl;
-}
+{}
 
 RPN::RPN(const RPN &target)
 {
-    std::cout << "Copy constructor!!" << std::endl;
     stk = target.stk;
 }
 
@@ -30,7 +27,7 @@ void RPN::polishCalculator(char *line)
     int i = 0;
     while (line[i])
     {
-        if (line[i] == ' ')
+        if (line[i] == ' ' || line[i] == '\t')
         {
             i++;
             continue;
@@ -42,7 +39,6 @@ void RPN::polishCalculator(char *line)
         }
         if (line[i] >= 48 && line[i] <= 57)
         {
-            
             stk.push((line[i] - 48));
             i++;
         }
@@ -57,77 +53,74 @@ void RPN::polishCalculator(char *line)
             float res;
             switch (line[i])
             {
-            case '*':
-                stk.pop();
-                if (stk.empty())
-                {
-                    std::cout << "Error!" << std::endl;
-                    std::exit(1);
-                }
-                res = stk.top() * tmp;
-                stk.pop();
-                stk.push(res);
-                i++;
-                continue;
-            
-            case '+':
-                stk.pop();
-                if (stk.empty())
-                {
-                    std::cout << "Error!" << std::endl;
-                    std::exit(1);
-                }
-                res = stk.top() + tmp;
-                stk.pop();
-                stk.push(res);
-                i++;
-                continue;
+                case '*':
+                    stk.pop();
+                    if (stk.empty())
+                    {
+                        std::cout << "Error!" << std::endl;
+                        std::exit(1);
+                    }
+                    res = stk.top() * tmp;
+                    stk.pop();
+                    stk.push(res);
+                    i++;
+                    continue;
 
-             case '-':
-                stk.pop();
-                if (stk.empty())
-                {
-                    std::cout << "Error!" << std::endl;
-                    std::exit(1);
-                }
-                res = stk.top() - tmp;
-                stk.pop();
-                stk.push(res);
-                i++;
-                continue;
+                case '+':
+                    stk.pop();
+                    if (stk.empty())
+                    {
+                        std::cout << "Error!" << std::endl;
+                        std::exit(1);
+                    }
+                    res = stk.top() + tmp;
+                    stk.pop();
+                    stk.push(res);
+                    i++;
+                    continue;
 
-             case '/':
-                stk.pop();
-                if (stk.empty())
-                {
-                    std::cout << "Error!" << std::endl;
-                    std::exit(1);
-                }
-                if (tmp == 0)
-                {
-                    std::cout << "Error: Can't Devide by 0!" << std::endl;
-                    std::exit(1);
-                }
-                res = stk.top() / tmp;
-                stk.pop();
-                stk.push(res);
-                i++;
-                continue;
-            default:
-                break;
+                case '-':
+                    stk.pop();
+                    if (stk.empty())
+                    {
+                        std::cout << "Error!" << std::endl;
+                        std::exit(1);
+                    }
+                    res = stk.top() - tmp;
+                    stk.pop();
+
+                    stk.push(res);
+                    i++;
+                    continue;
+
+                case '/':
+                    stk.pop();
+                    if (stk.empty())
+                    {
+                        std::cout << "Error!" << std::endl;
+                        std::exit(1);
+                    }
+                    if (tmp == 0)
+                    {
+                        std::cout << "Error: Can't Devide by 0!" << std::endl;
+                        std::exit(1);
+                    }
+                    res = stk.top() / tmp;
+                    stk.pop();
+                    stk.push(res);
+                    i++;
+                    continue;
+                default:
+                    break;
             }
         }
     }
-
     std::cout << stk.top() << std::endl;
     stk.pop();
     if (!stk.empty())
-        std::cout << "unfortuanally we can use this last one!" << std::endl;
-    
+        std::cout << "unfortuanally we can't use this last one!" << std::endl;
 }
 
 
 RPN::~RPN()
-{
-    std::cout << "Deconstructor Called" << std::endl;
-}
+{}

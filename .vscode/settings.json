@@ -66,7 +66,15 @@
         "numbers": "cpp",
         "sstream": "cpp",
         "gpr": "cpp",
-        "strstream": "cpp"
+        "strstream": "cpp",
+        "list": "cpp",
+        "__node_handle": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp",
+        "fstream": "cpp",
+        "map": "cpp",
+        "optional": "cpp",
+        "stack": "cpp"
     },
     "json.schemas": [
     

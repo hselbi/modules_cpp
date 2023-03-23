@@ -21,12 +21,13 @@ public:
     BitcoinExchange(const BitcoinExchange &target);
     BitcoinExchange &operator=(const BitcoinExchange &target);
     ~BitcoinExchange();
-
     void output(const char *input);
     void printMap(void);
     void displayResults(std::string date, std::string value);
 
 };
+
+int checkLine(std::string line);
 
 int     checkDate(std::string date);
 void    dateError(std::string date);

@@ -7,8 +7,7 @@ int main(int ac, char *av[])
         std::cout << "Error: could not open file." << std::endl;
         return 0;
     }
-    BitcoinExchange b("cpp_09/data.csv");
-
+    BitcoinExchange b("data.csv");
     b.output(av[1]);
     return 0;
 } 
